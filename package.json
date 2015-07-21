@@ -1,0 +1,33 @@
+{
+  "author": "https://github.com/marcdelalonde",
+  "name": "mongo-angular-ui",
+  "description": "AngularJS-based admin UI for MongoDB",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marcdelalonde/mongo-angular-ui.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-cache": "^0.2.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^1.0.5",
+    "gulp-uglify": "^1.2.0",
+    "nodemon": "^1.3.7"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "cookie-session": "^1.2.0",
+    "express": "^4.13.1",
+    "mongodb": "^2.0.39",
+    "mongoose": "^4.0.6"
+  }
+}

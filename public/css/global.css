@@ -1,0 +1,44 @@
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+h2 {
+  margin-top: 0px;
+}
+.main-menu {
+  list-style: none;
+  padding-left: 0;
+  margin: 20px 0 0 0;
+}
+.main-menu > li > .menu-heading {
+  padding: 0px 20px;
+  margin-top: 0px;
+}
+.main-menu > li.active > a {
+  color: #262626;
+  background-color: #F4F4F4;
+}
+.main-menu > li > a {
+  padding: 14px 20px;
+  display: block;
+  color: #4C4C4C;
+  font-weight: 500;
+  position: relative;
+  text-decoration: none;
+}
+.md-select-label {
+  border: none;
+  padding-top: 13px;
+  color: rgba(255,255,255,0.87) !important;
+}
+.md-select-label .md-select-icon {
+  width: 20px;
+}
+.md-select-label .md-select-icon:after {
+  top: 1px;
+  transform: scaleY(.4) scaleX(.7);
+}
+.icon-home:before {
+  content: "\e900";
+}
