@@ -1,0 +1,15 @@
+<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      
+  <ul class="main-menu">
+    <li><h2 class="menu-heading md-subhead">Collections</h2></li>
+    <li class="activea" ng-repeat="col in collections"><a href="">{{col.name}}</a></li>
+  </ul>
+
+</md-sidenav>
+
+<div layout="column" flex>
+    <md-content layout="column" flex class="md-padding">
+      <h2>Collection name 1</h2>
+      <pre>Content</pre>
+    </md-content>
+</div>

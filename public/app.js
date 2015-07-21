@@ -1,9 +1,34 @@
-angular.module('App', ['ngMaterial', 'app.services'])
-  .controller('AppCtrl', ['$scope', '$mdSidenav', 'Databases', 'Collections', function($scope, $mdSidenav, Databases, Collections){
+angular.module('App', ['ui.router', 'ngMaterial', 'app.services'])
+  .config(function($stateProvider, $urlRouterProvider) {
+
+    // For any unmatched url, redirect to homepage
+    $urlRouterProvider.otherwise('/');
+
+    // Homepage
+    $stateProvider.state('homepage', {
+      url: '/'
+    });
+
+    $stateProvider.state('database', {
+      url: '/:database',
+      templateUrl: 'views/database.html',
+      controller: 'DatabaseCtrl'
+    });
+
+    $stateProvider.state('database.collection', {
+      url: '/:collection',
+      parent: 'database',
+      templateUrl: 'views/collection.html',
+      controller: 'CollectionCtrl'
+    });
+
+  })
+  .controller('AppCtrl', ['$scope', '$mdSidenav', '$state', 'Databases', 'Collections', function($scope, $mdSidenav, $state, Databases, Collections){
     $scope.toggleSidenav = function(menuId) {
       $mdSidenav(menuId).toggle();
     };
 
+    $scope.server = 'localhost';
     $scope.database = null;
     $scope.databases = [];
     $scope.collections = [];
@@ -19,6 +44,15 @@ angular.module('App', ['ngMaterial', 'app.services'])
         });
       }
     });
+
+    $scope.go = function(state, params) {
+      $state.go(state, params);
+    };
+   
+  }])
+  .controller('DatabaseCtrl', ['$scope', 'Databases', 'Collections', function($scope, Databases, Collections){
+    
+    console.log('DatabaseCtrl');
    
   }]);
 

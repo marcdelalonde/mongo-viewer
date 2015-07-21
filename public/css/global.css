@@ -1,3 +1,12 @@
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -41,4 +50,21 @@ h2 {
 }
 .icon-home:before {
   content: "\e900";
+}
+
+.right-arrow {
+  color: #939DD5;
+  font-size: 26px;
+  font-weight: 100;
+  margin: 0px 8px;
+}
+.md-placeholder > span {
+  color: black;
+  color: #939DD5;
+}
+md-option {
+  transition: background 400ms;
+}
+md-option:hover {
+  background: #fafafa;
 }
