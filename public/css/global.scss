@@ -35,6 +35,10 @@ h2 {
   font-weight: 500;
   position: relative;
   text-decoration: none;
+  transition: background 400ms;
+}
+.main-menu > li > a:hover {
+  background: #fafafa;
 }
 .md-select-label {
   border: none;
@@ -67,4 +71,14 @@ md-option {
 }
 md-option:hover {
   background: #fafafa;
+}
+.pre-json {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+.count {
+  font-weight: 100;
 }

@@ -23,37 +23,71 @@ angular.module('App', ['ui.router', 'ngMaterial', 'app.services'])
     });
 
   })
-  .controller('AppCtrl', ['$scope', '$mdSidenav', '$state', 'Databases', 'Collections', function($scope, $mdSidenav, $state, Databases, Collections){
+  .filter('json', function() {
+    return function(json) {
+        function syntaxHighlight(json) {
+          json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+              var cls = 'number';
+              if (/^"/.test(match)) {
+                  if (/:$/.test(match)) {
+                      cls = 'key';
+                  } else {
+                      cls = 'string';
+                  }
+              } else if (/true|false/.test(match)) {
+                  cls = 'boolean';
+              } else if (/null/.test(match)) {
+                  cls = 'null';
+              }
+              return '<span class="' + cls + '">' + match + '</span>';
+          });
+        }
+        return JSON.stringify(json, undefined, 2);
+    };
+  })
+  .controller('AppCtrl', ['$rootScope', '$scope', '$mdSidenav', '$state', 'Databases', function($rootScope, $scope, $mdSidenav, $state, Databases){
     $scope.toggleSidenav = function(menuId) {
       $mdSidenav(menuId).toggle();
     };
 
-    $scope.server = 'localhost';
-    $scope.database = null;
+    $rootScope.server = 'localhost';
+    $rootScope.database = null;
+    $rootScope.collection = null;
     $scope.databases = [];
-    $scope.collections = [];
 
     Databases.get().$promise.then(function(databases){
       $scope.databases = databases.databases;
     });
 
-    $scope.$watch('database', function(database){
-      if (database) {
-        Collections.get({database: database}).$promise.then(function(collections){
-          $scope.collections = collections.collections;
-        });
-      }
-    });
-
-    $scope.go = function(state, params) {
+    $rootScope.go = function(state, params) {
       $state.go(state, params);
     };
    
   }])
-  .controller('DatabaseCtrl', ['$scope', 'Databases', 'Collections', function($scope, Databases, Collections){
+  .controller('DatabaseCtrl', ['$rootScope', '$scope', 'Collections', '$stateParams', function($rootScope, $scope, Collections, $stateParams){
     
-    console.log('DatabaseCtrl');
-   
+    $rootScope.database = $stateParams.database;
+    $scope.collections = [];
+
+    Collections.get({database: $rootScope.database}).$promise.then(function(collections){
+      $scope.collections = collections.collections;
+      $rootScope.collection = $scope.collections[0] ? $scope.collections[0].name : null;
+      if ($rootScope.collection) {
+        $rootScope.go('database.collection', {collection: $rootScope.collection});
+      }
+    });
+      
+  }])
+  .controller('CollectionCtrl', ['$rootScope', '$scope', 'Model', '$stateParams', function($rootScope, $scope, Model, $stateParams){
+    
+    $rootScope.collection = $stateParams.collection;
+    $scope.data = [];
+
+    Model.get({database: $rootScope.database, collection: $rootScope.collection}).$promise.then(function(data){
+      $scope.data = data.data;
+    });
+      
   }]);
 
 angular.module('app.services', ['ngResource'])
@@ -61,5 +95,8 @@ angular.module('app.services', ['ngResource'])
     return $resource('/api/databases');
   }])
   .factory('Collections', ['$resource', function($resource){
-    return $resource('/api/collections/:database', { database: '@database'});
+    return $resource('/api/collections/:database', { database: '@database' });
+  }])
+  .factory('Model', ['$resource', function($resource){
+    return $resource('/api/model/:database/:collection', { database: '@database', collection: '@collection' });
   }]);

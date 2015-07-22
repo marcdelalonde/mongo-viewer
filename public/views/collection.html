@@ -1,0 +1,3 @@
+<h2>{{collection}} <span class="count" nf-if="data">({{data.length}})</span></h2>
+
+<pre ng-repeat="d in data" class="pre-json">{{d | json}}</pre>

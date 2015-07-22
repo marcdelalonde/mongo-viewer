@@ -2,14 +2,13 @@
       
   <ul class="main-menu">
     <li><h2 class="menu-heading md-subhead">Collections</h2></li>
-    <li class="activea" ng-repeat="col in collections"><a href="">{{col.name}}</a></li>
+    <li ng-class="{active:collection===col.name}" ng-repeat="col in collections"><a href="" ng-click="go('database.collection', {collection: col.name})">{{col.name}}</a></li>
   </ul>
 
 </md-sidenav>
 
 <div layout="column" flex>
     <md-content layout="column" flex class="md-padding">
-      <h2>Collection name 1</h2>
-      <pre>Content</pre>
+    	<div ui-view></div>
     </md-content>
 </div>

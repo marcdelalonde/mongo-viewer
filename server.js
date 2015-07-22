@@ -1,8 +1,8 @@
 var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
+var monk = require('monk');
 var path = require('path');
 //var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -11,40 +11,6 @@ var app = express();
 // We use session
 app.use(session({secret: 'secret'}));
 app.use(express.static(__dirname + '/public'));
-
-/*mongoose.connect('mongodb://localhost/test');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function (callback) {
-  console.log('MongoDB connection OK!');
-});*/
-
-
-// --------------------------------------------
-
-/*var movieSchema = new mongoose.Schema({
-	title: String,
-	rating: String,
-	releaseYear: Number,
-	hasCreditCookie: Boolean
-});*/
-
-// Compile a 'Movie' model using the movieSchema as the structure.
-// Mongoose also creates a MongoDB collection called 'Movies' for these documents.
-//var Movie = mongoose.model('Movie', movieSchema);
-
-/*
-var thor = new Movie({
-	title: 'Thor',
-	rating: 'PG-13',
-	releaseYear: '2011',
-	hasCreditCookie: true
-});
-
-thor.save(function(err, thor) {
-  if (err) return console.error(err);
-  console.dir(thor);
-});*/
 
 // ---------------------------------------------
 
@@ -81,6 +47,16 @@ app.get('/api/collections/:database', function(req, res) {
 		});
 
 	});
+
+});
+
+app.get('/api/model/:database/:collection', function(req, res) { 
+
+	var db = monk('localhost:27017/' + req.params.database);
+	var collection = db.get(req.params.collection);
+    collection.find({}, {}, function(e, data){
+    	res.json({data:data});
+    });
 
 });
 

@@ -15,12 +15,12 @@ var gulp = require('gulp'),
  
 // Styles
 gulp.task('styles', function() {
-  return sass('src/styles/main.scss', { style: 'expanded' })
+  return sass('public/css/global.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('dist/styles'))
+    //.pipe(gulp.dest('public/css'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest('public/css'))
     .pipe(notify({ message: 'Styles task complete' }));
 });
  
@@ -59,7 +59,7 @@ gulp.task('serve', function() {
   }).on('start', livereload.reload);
 
   // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  gulp.watch('public/css/*.scss', ['styles']);
  
   // Watch .js files
   gulp.watch('src/scripts/**/*.js', ['scripts']);
