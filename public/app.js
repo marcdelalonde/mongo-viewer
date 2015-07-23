@@ -1,5 +1,7 @@
-angular.module('App', ['ui.router', 'ngMaterial', 'app.services'])
-  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+'use strict';
+
+angular.module('App', ['ui.router', 'ngMaterial', 'app.filters', 'app.services', 'templates'])
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 
@@ -13,41 +15,18 @@ angular.module('App', ['ui.router', 'ngMaterial', 'app.services'])
 
     $stateProvider.state('database', {
       url: '/:database',
-      templateUrl: 'views/database.html',
+      templateUrl: 'database.html',
       controller: 'DatabaseCtrl'
     });
 
     $stateProvider.state('database.collection', {
       url: '/:collection',
       parent: 'database',
-      templateUrl: 'views/collection.html',
+      templateUrl: 'collection.html',
       controller: 'CollectionCtrl'
     });
 
-  })
-  .filter('json', function() {
-    return function(json) {
-        function syntaxHighlight(json) {
-          json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-              var cls = 'number';
-              if (/^"/.test(match)) {
-                  if (/:$/.test(match)) {
-                      cls = 'key';
-                  } else {
-                      cls = 'string';
-                  }
-              } else if (/true|false/.test(match)) {
-                  cls = 'boolean';
-              } else if (/null/.test(match)) {
-                  cls = 'null';
-              }
-              return '<span class="' + cls + '">' + match + '</span>';
-          });
-        }
-        return JSON.stringify(json, undefined, 2);
-    };
-  })
+  }])
   .controller('AppCtrl', ['$rootScope', '$scope', '$mdSidenav', '$state', 'Databases', function($rootScope, $scope, $mdSidenav, $state, Databases){
     $scope.toggleSidenav = function(menuId) {
       $mdSidenav(menuId).toggle();
@@ -103,15 +82,4 @@ angular.module('App', ['ui.router', 'ngMaterial', 'app.services'])
       });
     };
       
-  }]);
-
-angular.module('app.services', ['ngResource'])
-  .factory('Databases', ['$resource', function($resource){
-    return $resource('/api/databases');
-  }])
-  .factory('Collections', ['$resource', function($resource){
-    return $resource('/api/collections/:database', { database: '@database' });
-  }])
-  .factory('Model', ['$resource', function($resource){
-    return $resource('/api/model/:database/:collection', { database: '@database', collection: '@collection' });
   }]);

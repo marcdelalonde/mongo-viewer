@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     nodemon = require('nodemon'),
+    templateCache = require('gulp-angular-templatecache'),
     livereload = require('gulp-livereload'),
     del = require('del');
  
@@ -17,24 +18,28 @@ var gulp = require('gulp'),
 gulp.task('styles', function() {
   return sass('public/css/global.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
-    //.pipe(gulp.dest('public/css'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
-    .pipe(gulp.dest('public/css'))
+    .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Styles task complete' }));
 });
  
 // Scripts
 gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
+  return gulp.src('public/**/*.js')
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts'))
+    .pipe(concat('app.js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Scripts task complete' }));
+});
+
+gulp.task('template', function () {
+  return gulp.src('public/views/*.html')
+    .pipe(templateCache({standalone: true}))
+    .pipe(gulp.dest('dist'));
 });
  
 // Clean
@@ -62,7 +67,10 @@ gulp.task('serve', function() {
   gulp.watch('public/css/*.scss', ['styles']);
  
   // Watch .js files
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
+  gulp.watch('public/**/*.js', ['scripts']);
+
+  // Watch .html files
+  gulp.watch('public/views/*.html', ['template']);
  
   // Watch any files in dist/, reload on change
   gulp.watch(['dist/**']).on('change', livereload.changed);

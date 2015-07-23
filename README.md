@@ -35,3 +35,9 @@ Start your developing environment:
 ```bash
 gulp serve
 ```
+
+## License
+
+Copyright (c) 2015 Marc Delalonde
+
+Licensed under the MIT License
