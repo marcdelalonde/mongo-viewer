@@ -1,7 +1,7 @@
 {
-  "name": "mongo-angular-ui",
-  "version": "0.1.0",
-  "description": "AngularJS-based admin UI for MongoDB",
+  "name": "mongo-viewer",
+  "version": "0.1.1",
+  "description": "MongoDB data viewer based on Express & Angular",
   "authors": [
     "Marc Delalonde"
   ],

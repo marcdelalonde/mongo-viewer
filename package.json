@@ -1,11 +1,11 @@
 {
   "author": "https://github.com/marcdelalonde",
-  "name": "mongo-angular-ui",
-  "description": "AngularJS-based admin UI for MongoDB",
-  "version": "0.1.0",
+  "name": "mongo-viewer",
+  "description": "MongoDB data viewer based on Express & Angular",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/marcdelalonde/mongo-angular-ui.git"
+    "url": "git://github.com/marcdelalonde/mongo-viewer.git"
   },
   "license": "MIT",
   "devDependencies": {
