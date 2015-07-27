@@ -118,3 +118,13 @@ md-content {
 .count {
   font-weight: 100;
 }
+
+.new-entry-dialog {
+  form {
+    margin: 0px;
+    textarea {
+      width: 550px;
+      height: 198px;
+    }
+  }
+}

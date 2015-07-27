@@ -1,4 +1,4 @@
-<md-button class="md-primary md-raised" flex flex-md="100">New</md-button>
+<md-button class="md-primary md-raised" flex flex-md="100" ng-click="newEntry($event)">New</md-button>
 <h2>{{collection}} <span class="count" nf-if="data">({{data.length}})</span></h2>
 
 <div ng-repeat="d in data" class="pre-json">
