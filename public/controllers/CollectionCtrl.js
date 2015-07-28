@@ -9,8 +9,8 @@ angular.module('app.controllers')
     // Make sure the sidebar is closed (for small screens)
     $mdSidenav('left').close();
 
-    Model.get({database: $rootScope.database, collection: $rootScope.collection}).$promise.then(function(data){
-      $scope.data = data.data;
+    Model.query({database: $rootScope.database, collection: $rootScope.collection}).$promise.then(function(data){
+      $scope.data = data;
     });
 
     $scope.showConfirm = function(ev, id) {
@@ -23,6 +23,10 @@ angular.module('app.controllers')
 
       $mdDialog.show(confirm).then(function() {
         console.log('Delete the object ' + id);
+        Model.delete({database: $rootScope.database, collection: $rootScope.collection, id: id})
+          .$promise.then(function(response){
+            console.log('ok', response);
+          });
       });
     };
 
@@ -32,20 +36,47 @@ angular.module('app.controllers')
         templateUrl: 'dialogNewEntry.html',
         targetEvent: ev,
       })
-      .then(function() {
-        //$scope.alert = 'You said the information was "' + answer + '".';
+      .then(function(response) {
+        $scope.data.push(response.data);
       }, function() {
-        //$scope.alert = 'You cancelled the dialog.';
+        // You cancelled the dialog
       });
     };
 
-    var DialogController = ['$scope', '$mdDialog', function($scope, $mdDialog) {
+    var DialogController = ['$scope', '$mdDialog', 'Model', function($scope, $mdDialog, Model) {
+      $scope.newObject = {name: 'ron', occupation: 'coder'};
+
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
       $scope.save = function() {
-        $mdDialog.hide();
+        Model.save({database: $rootScope.database, collection: $rootScope.collection}, $scope.newObject)
+          .$promise.then(function(response){
+            $mdDialog.hide(response);
+          });
       };
     }];
       
-  }]);
+  }])
+  .directive('jsonTextarea', function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attrs, ctrl) {
+        ctrl.$formatters.push(function formatter(value) {
+          return JSON.stringify(value, undefined, 2);
+        });
+        ctrl.$parsers.push(function(value) {
+          try {
+            var result = JSON.parse(value);
+            ctrl.$setValidity('json', true);
+            return result;
+          } catch (e) {
+            ctrl.$setValidity('json', false);
+            return undefined;
+          }
+        });
+      }
+    };
+  });

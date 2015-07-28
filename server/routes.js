@@ -1,5 +1,4 @@
-var bodyParser 	= require('body-parser'),
-	MongoClient = require('mongodb').MongoClient,
+var MongoClient = require('mongodb').MongoClient,
 	monk 		= require('monk'),
 	path 		= require('path');
 
@@ -47,7 +46,23 @@ module.exports = function(router) {
 		var db = monk('localhost:27017/' + req.params.database);
 		var collection = db.get(req.params.collection);
 	    collection.find({}, function(err, data){
-	    	res.json({data:data});
+	    	res.json(data);
+	    });
+
+	});
+
+	// Create a new entry
+	router.post('/api/model/:database/:collection', function(req, res) { 
+
+		var db = monk('localhost:27017/' + req.params.database);
+		var collection = db.get(req.params.collection);
+	    collection.insert(req.body, function(err, data){
+	    	if (!err) {
+	    		res.json({success: true, data: data});
+	    	}
+	    	else {
+	    		res.json({success: false});
+	    	}
 	    });
 
 	});
@@ -69,7 +84,12 @@ module.exports = function(router) {
 		var db = monk('localhost:27017/' + req.params.database);
 		var collection = db.get(req.params.collection);
 	    collection.remove({ _id: req.params.id }, function(err, data){
-	    	res.json({success: true});
+	    	if (!err) {
+	    		res.json({success: true});
+	    	}
+	    	else {
+	    		res.json({success: false});
+	    	}
 	    });
 
 	});
