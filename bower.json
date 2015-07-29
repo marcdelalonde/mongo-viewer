@@ -1,6 +1,6 @@
 {
   "name": "mongo-viewer",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "MongoDB data viewer based on Express & Angular",
   "authors": [
     "Marc Delalonde"

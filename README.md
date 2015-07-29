@@ -10,32 +10,39 @@ MongoDB data viewer based on Express & Angular
 
 > The project is currently under active development. Do not hesitate to ask for features and/or make pull requests.
 
-## Get Mongo-Viewer
+## Install & Use Mongo-Viewer
+
+Install via NPM
+
+```bash
+npm install -g mongo-viewer
+```
+
+Start the app with a simple command line:
+
+
+```bash
+mongo-viewer
+```
+
+By default it will serve on port 8080: [http://localhost:8080/](http://localhost:8080/). You can use the **-p** or **--port** parameter to set a convenient port for you.
+
+> Do not forget to have your mongodb service running
+
+## Developing Mongo-Viewer
+
+Clone the repo:
 
 ```bash
 git clone https://github.com/marcdelalonde/mongo-viewer.git
 ```
 
-## Installation
+Install dependencies:
 
 ```bash
 npm install
 bower install
 ```
-
-## Usage
-
-Start your MongoViewer app:
-
-```bash
-node server
-```
-
-By default it will serve on port 8080: [http://localhost:8080/](http://localhost:8080/).
-
-> Do not forget to have your mongodb service running
-
-## Developing Mongo-Viewer
 
 Start your developing environment:
 
