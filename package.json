@@ -2,7 +2,7 @@
   "author": "https://github.com/marcdelalonde",
   "name": "mongo-viewer",
   "description": "MongoDB data viewer based on Express & Angular",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/marcdelalonde/mongo-viewer.git"
@@ -31,5 +31,13 @@
     "mongodb": "^2.0.39",
     "mongoose": "^4.0.6",
     "monk": "^1.0.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "bugs": {
+    "url": "https://github.com/marcdelalonde/mongo-viewer/issues"
+  },
+  "homepage": "https://github.com/marcdelalonde/mongo-viewer",
+  "main": "server.js"
 }

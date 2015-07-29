@@ -1,12 +1,19 @@
 # mongo-viewer
+
+[![Dependencies](http://img.shields.io/david/marcdelalonde/mongo-viewer.svg?style=flat)](https://david-dm.org/marcdelalonde/mongo-viewer)
+[![Download Month](http://img.shields.io/npm/dm/mongo-viewer.svg?style=flat)](https://www.npmjs.org/package/mongo-viewer)
+[![NPM Version](http://img.shields.io/npm/v/mongo-viewer.svg?style=flat)](https://www.npmjs.org/package/mongo-viewer)
+[![Gitter](http://img.shields.io/badge/Gitter-room-brightgreen.svg?style=flat)](https://gitter.im/marcdelalonde/mongo-viewer)
+[![Gratipay](http://img.shields.io/gratipay/marcdelalonde.svg?style=flat)](https://gratipay.com/marcdelalonde/)
+
 MongoDB data viewer based on Express & Angular
 
 > The project is currently under active development. Do not hesitate to ask for features and/or make pull requests.
 
-## Clone Mongo-Viewer
+## Get Mongo-Viewer
 
 ```bash
-git clone https://github.com/marcdelalonde/mongo-viewer.git
+npm install mongo-viewer
 ```
 
 ## Installation
