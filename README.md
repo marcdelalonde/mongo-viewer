@@ -13,7 +13,7 @@ MongoDB data viewer based on Express & Angular
 ## Get Mongo-Viewer
 
 ```bash
-npm install mongo-viewer
+git clone https://github.com/marcdelalonde/mongo-viewer.git
 ```
 
 ## Installation
