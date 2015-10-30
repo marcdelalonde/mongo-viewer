@@ -2,15 +2,9 @@
 
 var express 	= require('express'),
 	bodyParser 	= require('body-parser'),
-	session 	= require('cookie-session'),
-	program 	= require('commander');
+	session 	= require('cookie-session');
 
-program
-	.version('0.2.0')
-	.option('-p, --port <port>', 'Port on which to listen to (defaults to 8080)', parseInt)
-	.parse(process.argv);
-
-var port = process.env.PORT || program.port || 8080;
+var port = process.env.PORT || 8080;
 
 var app = express();
 var router = express.Router();
