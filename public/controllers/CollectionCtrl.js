@@ -30,10 +30,11 @@ angular.module('app.controllers')
       });
     };
 
-    $scope.newEntry = function(ev) {
+    $scope.showEdit = function(ev, obj) {
       $mdDialog.show({
         controller: DialogController,
         templateUrl: 'dialogNewEntry.html',
+        data: obj,
         targetEvent: ev,
       })
       .then(function(response) {
@@ -43,18 +44,40 @@ angular.module('app.controllers')
       });
     };
 
-    var DialogController = ['$scope', '$mdDialog', 'Model', function($scope, $mdDialog, Model) {
-      $scope.newObject = {name: 'ron', occupation: 'coder'};
+    $scope.newEntry = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'dialogNewEntry.html',
+        data: {},
+        targetEvent: ev,
+      })
+      .then(function(response) {
+        $scope.data.push(response.data);
+      }, function() {
+        // You cancelled the dialog
+      });
+    };
+
+    var DialogController = ['$scope', '$mdDialog', 'Model', 'data', function($scope, $mdDialog, Model, data) {
+      $scope.object = data._id ? data : {name: 'ron', occupation: 'coder'};
 
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
 
       $scope.save = function() {
-        Model.save({database: $rootScope.database, collection: $rootScope.collection}, $scope.newObject)
-          .$promise.then(function(response){
-            $mdDialog.hide(response);
-          });
+        if ($scope.object._id) {
+          Model.update({database: $rootScope.database, collection: $rootScope.collection, id: $scope.object._id}, $scope.object)
+            .$promise.then(function(response){
+              $mdDialog.hide(response);
+            });
+        }
+        else {
+          Model.save({database: $rootScope.database, collection: $rootScope.collection}, $scope.object)
+            .$promise.then(function(response){
+              $mdDialog.hide(response);
+            });
+        }
       };
     }];
       

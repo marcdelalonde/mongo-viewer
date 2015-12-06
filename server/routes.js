@@ -78,6 +78,17 @@ module.exports = function(router) {
 
 	});
 
+	// Update an entry
+	router.put('/api/model/:database/:collection/:id', function(req, res) { 
+
+		var db = monk('localhost:27017/' + req.params.database);
+		var collection = db.get(req.params.collection);
+	    collection.update(req.body, { _id: req.params.id }, function(err, data){
+	    	res.json(data);
+	    });
+
+	});
+
 	// Delete an entry
 	router.delete('/api/model/:database/:collection/:id', function(req, res) { 
 

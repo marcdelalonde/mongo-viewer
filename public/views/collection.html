@@ -3,6 +3,7 @@
 
 <div ng-repeat="d in data" class="pre-json">
 	<md-button class="md-warn md-raised" ng-click="showConfirm($event, d._id)" flex flex-md="100">Delete</md-button>
+  <md-button class="md-primary md-raised" ng-click="showEdit($event, d)" flex flex-md="100">Edit</md-button>
 	<h3 ng-if="d._id">{{d._id}}</h3>
 	<pre class="json-container selectable">{{d | json}}</pre>
 </div>

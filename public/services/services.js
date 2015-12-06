@@ -8,5 +8,5 @@ angular.module('app.services', ['ngResource'])
     return $resource('/api/collections/:database', { database: '@database' });
   }])
   .factory('Model', ['$resource', function($resource){
-    return $resource('/api/model/:database/:collection/:id', { database: '@database', collection: '@collection', id: '@id' });
+    return $resource('/api/model/:database/:collection/:id', { database: '@database', collection: '@collection', id: '@id' }, {'update': { method:'PUT' }});
   }]);
