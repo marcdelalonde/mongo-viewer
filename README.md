@@ -8,6 +8,8 @@
 
 MongoDB data viewer based on Express & Angular
 
+![Mongo-Viewer UI](https://github.com/marcdelalonde/mongo-viewer/blob/master/screen.png)
+
 > The project is currently under active development. Do not hesitate to ask for features and/or make pull requests.
 
 ## Install & Use Mongo-Viewer
